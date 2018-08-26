@@ -22,6 +22,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using CustomerEquipmentApi.Modules;
 using Microsoft.Extensions.PlatformAbstractions;
 
+
 namespace CustomerEquipmentApi
 {
     public class Startup
@@ -95,6 +96,7 @@ namespace CustomerEquipmentApi
             builder.RegisterModule<RepositoryModule>();
 
             builder.Populate(services);
+            builder.RegisterType<ILogger>().AsSelf();
             var container = builder.Build();
             services.AddSingleton(container);
 
@@ -139,6 +141,8 @@ namespace CustomerEquipmentApi
 
             app.UseAuthentication();
             app.UseMvc();
+
+            
         }
     }
 }

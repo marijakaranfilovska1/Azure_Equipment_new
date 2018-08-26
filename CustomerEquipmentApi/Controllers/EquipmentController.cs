@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 using Core.Handler;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace CustomerEquipmentApi.Controllers
 {
@@ -13,17 +15,22 @@ namespace CustomerEquipmentApi.Controllers
     public class EquipmentController : ControllerBase
     {
         IEquipmentsHandler _equipmentHandler;
+        ILogger<EquipmentController> _loger;
 
-        public EquipmentController(IEquipmentsHandler equipmentHandler)
+        public EquipmentController(IEquipmentsHandler equipmentHandler, ILogger<EquipmentController>loger)
         {
             _equipmentHandler = equipmentHandler;
+            _loger = loger;
+            
         }
 
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return Ok(_equipmentHandler.getListOfEquipments());
+            var equipmentList = _equipmentHandler.getListOfEquipments();
+            _loger.LogInformation(JsonConvert.SerializeObject(equipmentList));
+            return Ok(equipmentList);
         }
 
         /*
