@@ -14,7 +14,7 @@ namespace Core.Repository
                 new Equipment()
                 {
                     IdEquipment = 1,
-                    Outlet = "Dev",
+                    Outlet = "DevTest",
                     SerialNumber = "111",
                     Model = "Bc",
                     MacAddress = "369785"
